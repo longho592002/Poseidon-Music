@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poseidon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="./MusicPlayer.css" />
+    <link rel="shortcut icon" href="./img/logo-favicon.png" type="image/x-icon">
+  </head>
+  <body>
+    <div class="player">
+      <div class="dashboard">
+        <header>
+          <h4>Now playing:</h4>
+          <h2>Untitled, 2014</h2>
+        </header>
+        <div class="cd">
+          <div class="cd-thumb" style="background-image: url('https://avatar-ex-swe.nixcdn.com/song/2017/06/09/6/2/1/f/1496978084895_640.jpg'); ">
+          </div>
+        </div>
+        <div class="control">
+          <div class="btn btn-repeat">
+            <i class="fas fa-redo"></i>
+          </div>
+          <div class="btn btn-prev">
+            <i class="fas fa-step-backward"></i>
+          </div>
+          <div class="btn btn-toggle-play">
+            <i class="fas fa-pause icon-pause"></i>
+            <i class="fas fa-play icon-play"></i>
+          </div>
+          <div class="btn btn-next">
+            <i class="fas fa-step-forward"></i>
+          </div>
+          <div class="btn btn-random">
+            <i class="fas fa-random"></i>
+          </div>
+        </div>
+        <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100"/>
+
+        <audio id="audio" src=""></audio>
+      </div>
+      <div class="playlist">
+
+      </div>
+    </div>
+    
+  </body>
+
+    <!-- <script>
+        const $$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document);
+const PLAYER_KEY = 'F8-player';
+const heading = $('header h2');
+const cdThumb = $('.cd-thumb');
+const audio = $('#audio');
+const player = $('.player');
+const btnPlay = $('.btn-toggle-play');
+const cd = $('.cd');
+const progress = $('#progress');
+const btnPrev = $('.btn-prev');
+const btnRepeat = $('.btn-repeat');
+const btnNext = $('.btn-next');
+const btnRandom = $('.btn-random');
+const playlist = $('.playlist');
+
+const app = {
+  isRepeat: false,
+  isRandom: false,
+  isPlaying: false,
+  currentIndex: 0,
+  config: JSON.parse(localStorage.getItem(PLAYER_KEY)) || {},
+  setConfig: function (key, value) {
+    this.config[key] = value;
+    localStorage.setItem(PLAYER_KEY, JSON.stringify(this.config));
+  },
+  songs: [
+    {
+      name: 'Nevada',
+      singer: 'Vicetone',
+      path: 'https://aredir.nixcdn.com/NhacCuaTui924/Nevada-Vicetone-4494556.mp3?st=_IjpS9u0LjapNgzm058wVw&e=1623143773',
+      image: 'https://i.pinimg.com/originals/f8/6f/33/f86f3378e656883b33594f06d78d1634.jpg',
+    },
+    {
+      name: 'Light It Up',
+      singer: 'Robin Hustin x TobiMorrow',
+      path: 'https://aredir.nixcdn.com/NhacCuaTui968/LightItUp-RobinHustinTobimorrowJex-5619031.mp3?st=kzpVQ5kKnf2LlcAqM6lnxg&e=1623143881',
+      image: 'https://avatar-ex-swe.nixcdn.com/song/2019/01/08/1/3/d/a/1546913843457_640.jpg',
+    },
+    {
+      name: 'Yoru ni kakeru',
+      singer: 'YOASOBI',
+      path: 'https://aredir.nixcdn.com/NhacCuaTui992/YoruNiKakeru-YOASOBI-6149490.mp3?st=68hnFhtGF6RukKDcDcW9Mw&e=1623132179',
+      image: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/16788ee5-3436-474a-84fd-6616063a1a9a/de2f4eq-bc67fa17-8dae-46a9-b85d-fe8082c34841.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE2Nzg4ZWU1LTM0MzYtNDc0YS04NGZkLTY2MTYwNjNhMWE5YVwvZGUyZjRlcS1iYzY3ZmExNy04ZGFlLTQ2YTktYjg1ZC1mZTgwODJjMzQ4NDEucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.dABuqANeQEs6FBfslZHdG1lW_gDwzf61yqiSABROSx0',
+    },
+    {
+      name: 'Muộn rồi mà sao còn',
+      singer: 'Sơn Tùng M-TP',
+      path: 'https://aredir.nixcdn.com/Believe_Audio19/MuonRoiMaSaoCon-SonTungMTP-7011803.mp3?st=w9AA-eyRI7yD_VYGfvVWeQ&e=1623141624',
+      image: 'https://pbs.twimg.com/media/Ez5jRyVVgAQN6Kh.jpg',
+    },
+    {
+      name: 'See You Again',
+      singer: 'Charlie Puth ft Wiz Khalifa',
+      path: 'https://aredir.nixcdn.com/NhacCuaTui894/SeeYouAgain-KurtSchneiderEppicAlexGoot-3888930.mp3?st=1q73myBS8FKr8Rx0snpMJw&e=1623144094',
+      image: 'https://nghiennhac.com/wp-content/uploads/2020/09/see-you-again-0.jpg',
+    },
+   
+    {
+      name: 'Symphony',
+      singer: 'Clean Bandit',
+      path: 'https://aredir.nixcdn.com/Sony_Audio37/Symphony-CleanBanditZaraLarsson-4822950.mp3?st=sPgJSXtRXYpT_rznXyez6g&e=1623144426',
+      image: 'https://i.ytimg.com/vi/PIf9GvWaxQQ/maxresdefault.jpg',
+    },
+    {
+      name: 'Waiting For Love',
+      singer: 'Avicii',
+      path: 'https://aredir.nixcdn.com/Unv_Audio45/WaitingForLove-Avicii-4203283.mp3?st=mXGv6kIqbxg_coAyUqzlnw&e=1623144462',
+      image: 'https://i.ytimg.com/vi/Hmbm3G-Q444/maxresdefault.jpg',
+    },
+    {
+      name: 'Alone',
+      singer: 'Marshmello',
+      path: 'https://aredir.nixcdn.com/NhacCuaTui927/Alone-Marshmello-4456939.mp3?st=RTsMC9tNcKEi8fd0iKtdaA&e=1623144502',
+      image: 'https://i.ytimg.com/vi/UNB8F0ObA4g/maxresdefault.jpg',
+    },
+    {
+      name: 'Something Just Like This',
+      singer: 'The Chainsmokers & Coldplay',
+      path: 'https://aredir.nixcdn.com/Sony_Audio39/SomethingJustLikeThis-TheChainsmokersColdplay-5337136.mp3?st=VQuH6VgNsPlBizbk-c7n3w&e=1623144556',
+      image: 'https://avatar-ex-swe.nixcdn.com/song/2017/11/07/a/1/4/5/1510038809679_640.jpg',
+    },
+    {
+      name: 'Sugar',
+      singer: 'Maroon 5',
+      path: 'https://aredir.nixcdn.com/Unv_Audio73/Sugar-Maroon5-3338455.mp3?st=3FUWEyikJePPeAuREUcw9g&e=1623144644',
+      image: 'https://i.ytimg.com/vi/7vw84EkHOlY/maxresdefault.jpg',
+    },
+  ],
+  render: function () {
+    const htmls = this.songs.map((item, index) => {
+      return `        
+        <div data-index="${index}" class="song ${
+        index === this.currentIndex ? 'active' : ''
+      }">
+            <div
+                class="thumb"
+                style="
+                background-image: url('${item.image}');
+            "
+            ></div>
+            <div class="body">
+                <h3 class="title">${item.name}</h3>
+                <p class="author">${item.singer}</p>
+            </div>
+            <div class="option">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>`;
+    });
+    playlist.innerHTML = htmls.join('');
+  },
+  handleEvents: function () {
+    const _this = this;
+    const cdWidth = cd.offsetWidth;
+
+    //xử lý CD quay / dừng
+    const cdThumbAnimate = cdThumb.animate(
+      [
+        {
+          transform: 'rotate(360deg)',
+        },
+      ],
+      {
+        duration: 10000,
+        iterations: Infinity,
+      }
+    );
+    cdThumbAnimate.pause();
+    //xử lý phóng to thu nhỏ
+    document.onscroll = function () {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const newCDwidth = cdWidth - scrollTop;
+      cd.style.width = newCDwidth > 0 ? newCDwidth + 'px' : 0;
+      cd.style.opacity = newCDwidth / cdWidth;
+    };
+    //xử lý khi play
+    btnPlay.onclick = function () {
+      if (_this.isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+    };
+    //xử lý khi nhấn next songs
+    btnNext.onclick = function () {
+      if (_this.isRandom) {
+        _this.playRandomSong();
+      } else {
+        _this.nextSong();
+      }
+      _this.scrollToActiveSong();
+      audio.play();
+    };
+    //xử lý khi nhấn pre songs
+    btnPrev.onclick = function () {
+      if (_this.isRandom) {
+        _this.playRandomSong();
+      } else {
+        _this.preSong();
+      }
+      _this.scrollToActiveSong();
+      audio.play();
+    };
+    //xử lý khi random
+    btnRandom.onclick = function () {
+      _this.isRandom = !_this.isRandom;
+      _this.setConfig('isRandom', _this.isRandom);
+      btnRandom.classList.toggle('active', _this.isRandom);
+    };
+    //xử lý khi repeat
+    btnRepeat.onclick = function () {
+      _this.isRepeat = !_this.isRepeat;
+      _this.setConfig('isRepeat', _this.isRepeat);
+      btnRepeat.classList.toggle('active', _this.isRepeat);
+    };
+    audio.onplay = function () {
+      _this.isPlaying = true;
+      cdThumbAnimate.play();
+      player.classList.add('playing');
+    };
+    audio.onpause = function () {
+      _this.isPlaying = false;
+      player.classList.remove('playing');
+      cdThumbAnimate.pause();
+    };
+    audio.ontimeupdate = function () {
+      if (audio.duration) {
+        const progressPercen = (audio.currentTime / audio.duration) * 100;
+        progress.value = progressPercen;
+      }
+    };
+    progress.oninput = function (e) {
+      const seekTime = (audio.duration / 100) * e.target.value;
+      audio.currentTime = seekTime;
+    };
+    audio.onended = function () {
+      if (_this.isRepeat) {
+        audio.play();
+      } else {
+        btnNext.click();
+      }
+    };
+    //lắng nghe click hành vì click vào playlist
+    playlist.onclick = function (e) {
+      let songNode = e.target.closest('.song:not(.active)');
+      if (songNode || e.target.closest('.option')) {
+        if (songNode) {
+          _this.currentIndex = Number(songNode.dataset.index);
+          _this.loadCurrentSong();
+          audio.play();
+        }
+        if (e.target.closest('.option')) {
+        }
+      }
+    };
+  },
+  playRandomSong: function () {
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * this.songs.length);
+    } while (this.currentIndex === newIndex);
+    console.log(newIndex);
+    this.currentIndex = newIndex;
+    this.loadCurrentSong();
+  },
+  nextSong: function () {
+    this.currentIndex++;
+    if (this.currentIndex > this.songs.length - 1) {
+      this.currentIndex = 0;
+    }
+    this.loadCurrentSong();
+  },
+  preSong: function () {
+    this.currentIndex--;
+    if (this.currentIndex < 0) {
+      this.currentIndex = this.songs.length - 1;
+    }
+    this.loadCurrentSong();
+  },
+  scrollToActiveSong: function () {
+    setTimeout(() => {
+      if (this.currentIndex <= 3) {
+        $('.song.active').scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      } else {
+        $('.song.active').scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
+    }, 300);
+  },
+  loadConfig: function () {
+    this.isRandom = this.config.isRandom;
+    this.isRepeat = this.config.isRepeat;
+  },
+  defineProperty: function () {
+    Object.defineProperty(this, 'currentSong', {
+      get: function () {
+        return this.songs[this.currentIndex];
+      },
+    });
+  },
+  loadCurrentSong: function () {
+    heading.textContent = this.currentSong.name;
+    cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
+    audio.src = this.currentSong.path;
+
+    if ($('.song.active')) {
+      $('.song.active').classList.remove('active');
+    }
+    const list = $$('.song');
+    list.forEach((song) => {
+      if (Number(song.getAttribute('data-index')) === this.currentIndex) {
+        song.classList.add('active');
+      }
+    });
+  },
+  start: function () {
+    this.loadConfig();
+    btnRandom.classList.toggle('active', this.isRandom);
+    btnRepeat.classList.toggle('active', this.isRepeat);
+    this.defineProperty();
+    this.handleEvents();
+    this.loadCurrentSong();
+    this.render();
+  },
+};
+app.start();
+
+    </script> -->
+
+    <!-- https://avatar-ex-swe.nixcdn.com/song/2017/11/07/a/1/4/5/1510038809679_640.jpg  =>  Chainsmokers -->
+
+
+    <script>
+        const $ = document.querySelector.bind(document)
+        const $$ = document.querySelectorAll.bind(document)
+        const heading = $('header h2')
+        const cdThumb = $('.cd-thumb')
+        const audio = $('#audio')
+        const cd = $('.cd')
+        const playBtn = $('.btn-toggle-play')
+        const player = $('.player')
+        const progress = $('#progress')
+        const nextBtn = $('.btn-next')
+        const prevBtn = $('.btn-prev')
+        const randomBtn = $('.btn-random')
+        const repeatBtn = $('.btn-repeat')
+        const playList = $('.playlist')
+        const PLAYER_STORAGE_KEY = 'F8-PLAYER'
+        isPlaying = true
+        isRandom = false;
+        isRepeat = false;
+        
+        
+        const app = {
+            config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+            setConfig: function(key, value) {
+              this.config[key] = value;
+              localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
+            },
+            currentIndex : 0,
+            songs: [
+        {
+          name: 'Untitled 2014',
+          singer: 'Gdragon',
+          // path: 'https://aredir.nixcdn.com/YG_Audio1/HaruHaru-BIGBANG-6291516.mp3?st=Y3bDbNZHAwQAAUsvng9R3A&e=1631167682',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/Untitled2014-GDRAGON-6292962.mp3?st=IkolUT0uwnCzBvNmaZgVOQ&e=1631166420',
+          image: 'https://avatar-ex-swe.nixcdn.com/song/2017/06/09/6/2/1/f/1496978084895_640.jpg',
+        },
+        {
+          name: 'If You',
+          singer: 'Big bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/IfYou-BIGBANG-6292294.mp3?st=Tnzez-54td9YntefBaQdLA&e=1631166550',
+          image: 'https://cdn.tgdd.vn//GameApp/-1//Profile-tieng-Viet-thong-tin-tieu-su-cac-thanh-vien-nhom-Big-Bang-800x600.jpg',
+        },
+        {
+          name: 'Fxxk It',
+          singer: 'Big bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/FxxkIt-BIGBANG-6292297.mp3?st=Rpl4lnB1gVR5zC94SEE2GA&e=1631167138',
+          image: 'https://cdn.tgdd.vn//GameApp/-1//Profile-tieng-Viet-thong-tin-tieu-su-cac-thanh-vien-nhom-Big-Bang-800x600.jpg',
+        },
+        {
+          name: 'Bae Bae',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/BaeBae-BIGBANG-6292288.mp3?st=AYGmx-cr292yieiQWMCBOg&e=1631167335',
+          image: 'http://res.heraldm.com/content/image/2015/05/04/20150504001392_0.jpg',
+        },
+        {
+          name: 'Loser',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/Loser-BIGBANG-6291940.mp3?st=3PRhpyejOTC8vZi6RyQQAw&e=1631167587',
+          image: 'https://upload.wikimedia.org/wikipedia/vi/thumb/b/b2/BIGBANG_-_MADE.jpg/330px-BIGBANG_-_MADE.jpg',
+        },
+        {
+          name: 'Blue',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/Blue-BIGBANG-6292792.mp3?st=2WwmxNeGAYA-JJPVTuHrAA&e=1631167621',
+          image: 'https://file.tinnhac.com/resize/600x-/music/2017/06/03/bigbang-blue-5406.jpg',
+        },
+        {
+          name: 'Sober',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/Sober-BIGBANG-6292292.mp3?st=hqojLQtNoFyl9pFiuOiT7A&e=1631167660',
+          image: 'https://upload.wikimedia.org/wikipedia/vi/thumb/b/b2/BIGBANG_-_MADE.jpg/330px-BIGBANG_-_MADE.jpg',
+        },
+        {
+          name: 'Haru Haru',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/HaruHaru-BIGBANG-6291516.mp3?st=Y3bDbNZHAwQAAUsvng9R3A&e=1631167682',
+          image: 'https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2018/05/bigbang-haru-haru-1.jpg?fit=540%2C20000&quality=95&ssl=1',
+        },
+        {
+          name: 'Let\'S Not Fall In Love ',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/HaruHaru-BIGBANG-6291516.mp3?st=Y3bDbNZHAwQAAUsvng9R3A&e=1631167682',
+          image: 'https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2018/05/bigbang-haru-haru-1.jpg?fit=540%2C20000&quality=95&ssl=1',
+        },
+        {
+          name: 'Flower Road',
+          singer: 'Big Bang',
+          path: 'https://aredir.nixcdn.com/YG_Audio1/FlowerRoad-BIGBANG-6292466.mp3?st=ZmyDbRGpBofRz-dfhfdHZQ&e=1631169664',
+          image: 'https://avatar-ex-swe.nixcdn.com/song/2018/03/13/1/4/0/6/1520933026354_500.jpg',
+        },
+        {
+          name: 'See You Again',
+          singer: 'Charlie Puth ft Wiz Khalifa',
+          path: 'https://aredir.nixcdn.com/Warner_Audio35/SeeYouAgainFeatCharliePuth-WizKhalifa-6426109.mp3?st=ptGG30PJErqUBh_G9BK3bg&e=1631167247',
+          image: 'https://nghiennhac.com/wp-content/uploads/2020/09/see-you-again-0.jpg',
+        },
+       
+        {
+          name: 'Symphony',
+          singer: 'Clean Bandit',
+          path: 'https://aredir.nixcdn.com/Sony_Audio37/Symphony-CleanBanditZaraLarsson-4822950.mp3?st=sPgJSXtRXYpT_rznXyez6g&e=1623144426',
+          image: 'https://i.ytimg.com/vi/PIf9GvWaxQQ/maxresdefault.jpg',
+        },
+        {
+          name: 'Waiting For Love',
+          singer: 'Avicii',
+          path: 'https://aredir.nixcdn.com/Unv_Audio45/WaitingForLove-Avicii-4203283.mp3?st=mXGv6kIqbxg_coAyUqzlnw&e=1623144462',
+          image: 'https://i.ytimg.com/vi/Hmbm3G-Q444/maxresdefault.jpg',
+        },
+        {
+          name: 'Alone',
+          singer: 'Marshmello',
+          path: 'https://aredir.nixcdn.com/NhacCuaTui927/Alone-Marshmello-4456939.mp3?st=RTsMC9tNcKEi8fd0iKtdaA&e=1623144502',
+          image: 'https://i.ytimg.com/vi/UNB8F0ObA4g/maxresdefault.jpg',
+        },
+        {
+          name: 'Something Just Like This',
+          singer: 'The Chainsmokers & Coldplay',
+          path: 'https://aredir.nixcdn.com/Sony_Audio39/SomethingJustLikeThis-TheChainsmokersColdplay-5337136.mp3?st=VQuH6VgNsPlBizbk-c7n3w&e=1623144556',
+          image: 'https://avatar-ex-swe.nixcdn.com/song/2017/11/07/a/1/4/5/1510038809679_640.jpg',
+        },
+        {
+          name: 'Sugar',
+          singer: 'Maroon 5',
+          path: 'https://aredir.nixcdn.com/Unv_Audio73/Sugar-Maroon5-3338455.mp3?st=3FUWEyikJePPeAuREUcw9g&e=1623144644',
+          image: 'https://i.ytimg.com/vi/7vw84EkHOlY/maxresdefault.jpg',
+        },
+        {
+          name: 'Muộn rồi mà sao còn',
+          singer: 'Sơn Tùng M-TP',
+          path: 'https://aredir.nixcdn.com/Believe_Audio19/MuonRoiMaSaoCon-SonTungMTP-7011803.mp3?st=Cj6QHaJ4AJ4np0FdzrQ3wg&e=1631103584',
+          image: 'https://pbs.twimg.com/media/Ez5jRyVVgAQN6Kh.jpg',
+        },
+            
+    ],
+            render: function() {
+                const htmls = this.songs.map((song, index) => {
+                    return `
+                        <div  class="song ${index === this.currentIndex ? 'active' : ''}" data-index = ${index}>
+                            <div class="thumb" style="background-image: url('${song.image}');"></div>
+                            <div class="body">
+                                <h3 class="title">${song.name}</h3>
+                                <p class="author">${song.singer}</p>
+                            </div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                        </div>
+                    `
+                })
+                playList.innerHTML = htmls.join('')
+            },
+            defineProperties: function () {
+              Object.defineProperty(this,'currentSong', {
+                get: function () {
+                  return this.songs[this.currentIndex]
+                }
+              })                             
+            },
+            handleEvents: function() {
+              const _this = this
+              const cdWidth = cd.offsetWidth
+
+              // Xử lý CD quay / Dừng
+              const cdThumnAnimate = cdThumb.animate([
+                {transform:'rotate(360deg)'}
+              ], {
+                duration:10000,  //10 second
+                iterations: Infinity
+              })
+              cdThumnAnimate.pause()
+
+              // Xử lý phóng to thu nho3
+              document.onscroll = function () {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop
+                const newCdWidth = cdWidth - scrollTop
+
+                cd.style.width = newCdWidth > 0 ?  newCdWidth + 'px' : 0
+                cd.style.opacity = newCdWidth / cdWidth
+              }
+
+              // Xử lý khi click play
+              playBtn.onclick = function() {
+                if (_this.isPlaying) {
+                  audio.pause()
+                } else {
+                    audio.play()
+                }
+
+                // Khi song đc play
+                audio.onplay = function () {
+                  _this.isPlaying = true
+                    player.classList.add('playing')
+                    cdThumnAnimate.play()
+                }
+                
+                // Khi song bị pause
+                audio.onpause = function() {
+                  _this.isPlaying = false
+                    player.classList.remove('playing')
+                    cdThumnAnimate.pause()
+                }
+
+                // Khi tiến độ bài hát thay đổi
+                audio.ontimeupdate = function() {
+                  if(audio.duration) {
+                    const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
+                    progress.value = progressPercent
+                  }
+                }
+
+                //Xử lý khi tua song
+                progress.oninput = function(e) {
+                  const seekTime = audio.duration / 100 * e.target.value
+                  audio.currentTime = seekTime
+                }
+                
+                // Khi next song
+                nextBtn.onclick = function() {
+                  if(_this.isRandom) {
+                    _this.playRandomSong()
+                  } else {
+                    _this.nextSong()
+
+                  }
+                  audio.play()
+                  _this.render()
+                  _this.scrollToActiveSong()
+                }
+
+                // Khi prev song
+                prevBtn.onclick = function() {
+                  if(_this.isRandom) {
+                    _this.playRandomSong()
+                  } else {
+                    _this.prevSong()
+
+                  }
+                  audio.play()
+                  _this.render()
+                  _this.scrollToActiveSong()
+                }
+
+                // Xử lý bật/ tắt ramdom song
+                randomBtn.onclick = function(e) {
+                  _this.isRandom = !_this.isRandom
+                  _this.setConfig('isRandom', _this.Random)
+                  randomBtn.classList.toggle('active', _this.isRandom)
+                }
+
+                //Xử lý lặp lại  một song 
+                repeatBtn.onclick = function(e) {
+                  _this.isRepeat = !_this.isRepeat
+                  _this.setConfig('isRepeat', _this.Repeat)
+                  repeatBtn.classList.toggle('active', _this.isRepeat)
+                }
+
+                // Xử lý next song khi audio ended 
+                audio.onended = function() {
+                  if(_this.isRepeat) {
+                    audio.play()
+                  } else {
+                    nextBtn.click()
+                  }
+                }
+
+                // Lắng nghe hành vi click vào playlist
+                playList.onclick = function (e) {
+                  const SongNode = e.target.closest('.song:not(.active)')
+                  if(SongNode || e.target.closest('.option')) {
+                    // Xử lý khi click vào song 
+                    if(e.target.closest('.song:not(.active)')) {
+                      _this.currentIndex = Number(SongNode.dataset.index)
+                      _this.loadCurrentSong()
+                      _this.render()
+                      audio.play()
+                    }
+                    //  Xử lý khi click vào song option
+
+                  }
+                }
+              }
+            },
+
+            scrollToActiveSong :function () {
+              setTimeout(() => {
+                $('.song.active').scrollIntoView({
+                  behavior:'smooth',
+                  block: 'center',
+                })
+              },300)
+            },
+            loadCurrentSong: function () {
+              const heading = $('header h2')
+              const cdThumb = $('.cd-thumb')
+              const audio = $('#audio')
+
+              heading.textContent = this.currentSong.name;
+              cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
+              audio.src = this.currentSong.path
+            },
+            loadConfig: function() {
+              this.isRandom = this.config.isRandom
+              this.isRepeat = this.config.isRepeat
+            },
+            nextSong:function() {
+              this.currentIndex++
+              if(this.currentIndex >= this.songs.length) {
+                this.currentIndex = 0
+              }
+              this.loadCurrentSong()
+            },
+            prevSong:function() {
+              this.currentIndex--
+              if(this.currentIndex < 0) {
+                this.currentIndex = this.songs.length -1
+              }
+              this.loadCurrentSong()
+            },
+            playRandomSong: function() {
+              let newIndex 
+              do {
+                newIndex = Math.floor(Math.random() * this.songs.length)
+              } while(newIndex === this.currentIndex )
+
+              this.currentIndex =newIndex
+              this.loadCurrentSong()
+            },
+
+            
+            start: function() {
+              // Gán cấu hình từ config 
+              // Định nghĩa các thuộc tính cho object
+                this.defineProperties()
+
+              // Lắng nghe / xử lý các sự kiện (DOM events)
+                this.handleEvents()
+
+              // Tải bài hát đầu tiên vào UI khi chạy ứng dụng
+              this.loadCurrentSong()
+                
+              //Render playlist
+                this.render()
+
+
+
+            }
+
+        }
+    
+
+        app.start()
+    </script>
+</html>
