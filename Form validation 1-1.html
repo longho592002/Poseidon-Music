@@ -151,5 +151,19 @@ html {
         </form>
       
       </div>
+
+      <script src="./Validator.js"></script>
+
+      <!-- Mong muốn của chúng ta -->
+      <script>
+        Validator({
+          form:'#form-1',
+          rule: [
+            Validator.isRequired('#fullname'),
+            Validator.isEmail('#email'),
+
+          ]
+        });
+      </script>
 </body>
 </html>
