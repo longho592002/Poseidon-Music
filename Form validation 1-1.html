@@ -161,15 +161,17 @@ html {
           form:'#form-1',
           errorMessage:'.form-message',
           rules: [
-            Validator.isRequired('#fullname'),
-            Validator.isRequired('#email'),
-            Validator.isEmail('#email'),
-            Validator.minLength('#password', 8),
-            Validator.isRequired('#password_confirmation'),
+            Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+            Validator.isEmail('#email', 'Vui lòng nhập email  của bạn'),
+            Validator.minLength('#password', 8,'Vui lòng nhập mật khẩu  của bạn'),
             Validator.isConfirmed('#password_confirmation', function () {
               return document.querySelector('#form-1 #password').value;
             }, 'Mật khẩu nhập lại không chính xác'),
-          ]
+          ],
+          onSubmit: function (data) {
+            //Call API
+            console.log(data);
+          }
         });
       </script>
 </body>
