@@ -146,6 +146,8 @@ html {
             <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
             <span class="form-message"></span>
           </div>
+
+          
       
           <button class="form-submit">Đăng ký</button>
         </form>
@@ -159,6 +161,7 @@ html {
       <script>
         Validator({
           form:'#form-1',
+          formGroupSelector: '.form-group',
           errorMessage:'.form-message',
           rules: [
             Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
